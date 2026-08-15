@@ -1,0 +1,1349 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>장군봉 배드민턴 대기 등록</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    font-family:
+        "Malgun Gothic",
+        "Apple SD Gothic Neo",
+        "Pretendard",
+        sans-serif;
+}
+
+html,
+body{
+    margin:0;
+    padding:0;
+    width:100%;
+    min-height:100%;
+}
+
+body{
+    background:#f2f4f7;
+    color:#222;
+    padding:15px;
+}
+
+.container{
+    width:100%;
+    max-width:620px;
+    margin:0 auto;
+}
+
+.header{
+    width:100%;
+    background:#1769aa;
+    color:#fff;
+    border-radius:16px;
+    padding:22px 16px;
+    text-align:center;
+    margin-bottom:15px;
+}
+
+.header h1{
+    margin:0;
+    font-size:25px;
+    line-height:1.4;
+}
+
+.header p{
+    margin:7px 0 0;
+    font-size:14px;
+}
+
+.card{
+    width:100%;
+    background:#fff;
+    border-radius:16px;
+    padding:18px;
+    margin-bottom:15px;
+    box-shadow:0 3px 12px rgba(0,0,0,.08);
+}
+
+.card h2{
+    margin:0 0 15px;
+    font-size:19px;
+}
+
+label{
+    display:block;
+    margin:13px 0 7px;
+    font-size:15px;
+    font-weight:bold;
+}
+
+input,
+select{
+    display:block;
+    width:100%;
+    height:48px;
+    padding:0 13px;
+    border:1px solid #d5d9df;
+    border-radius:10px;
+    background:#fff;
+    color:#222;
+    font-size:16px;
+    outline:none;
+}
+
+input:focus,
+select:focus{
+    border-color:#1769aa;
+    box-shadow:0 0 0 2px rgba(23,105,170,.10);
+}
+
+.court-grid{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:7px;
+}
+
+.court-btn{
+    height:48px;
+    border:1px solid #d5d9df;
+    border-radius:10px;
+    background:#fff;
+    color:#333;
+    font-size:14px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.court-btn:hover{
+    border-color:#1769aa;
+}
+
+.court-btn.selected{
+    background:#1769aa;
+    color:#fff;
+    border-color:#1769aa;
+}
+
+.court-btn.closed{
+    background:#f1f3f5;
+    color:#999;
+    border-color:#ddd;
+    cursor:not-allowed;
+}
+
+.court-info{
+    margin-top:10px;
+    padding:10px;
+    background:#f8fafc;
+    border-radius:9px;
+    text-align:center;
+    font-size:13px;
+    color:#475569;
+}
+
+.register-btn{
+    width:100%;
+    height:52px;
+    margin-top:18px;
+    border:0;
+    border-radius:11px;
+    background:#1769aa;
+    color:#fff;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.register-btn:hover{
+    opacity:.9;
+}
+
+.register-btn:disabled{
+    background:#aeb7c2;
+    cursor:not-allowed;
+}
+
+.message{
+    display:none;
+    padding:12px;
+    border-radius:10px;
+    margin-bottom:15px;
+    text-align:center;
+    font-size:14px;
+    font-weight:bold;
+}
+
+.message.show{
+    display:block;
+}
+
+.message.success{
+    background:#e8f7ee;
+    color:#147a3d;
+}
+
+.message.error{
+    background:#fdeaea;
+    color:#b42318;
+}
+
+.result{
+    display:none;
+    background:#eff6ff;
+    border:1px solid #bfdbfe;
+    border-radius:12px;
+    padding:18px;
+    margin-bottom:15px;
+    text-align:center;
+}
+
+.result.show{
+    display:block;
+}
+
+.result-title{
+    font-size:15px;
+    color:#475569;
+    margin-bottom:7px;
+}
+
+.result-number{
+    font-size:42px;
+    font-weight:900;
+    color:#1769aa;
+}
+
+.result-text{
+    margin-top:6px;
+    font-size:14px;
+    color:#334155;
+}
+
+.waiting-card{
+    width:100%;
+    background:#fff;
+    border-radius:16px;
+    padding:18px;
+    box-shadow:0 3px 12px rgba(0,0,0,.08);
+}
+
+.waiting-card h2{
+    margin:0 0 14px;
+    font-size:19px;
+}
+
+.court-section{
+    border:1px solid #e2e8f0;
+    border-radius:12px;
+    margin-bottom:10px;
+    overflow:hidden;
+}
+
+.court-title{
+    background:#f8fafc;
+    padding:11px 13px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-weight:bold;
+    font-size:14px;
+}
+
+.count{
+    color:#1769aa;
+}
+
+.waiting-list{
+    padding:8px;
+}
+
+.waiting-person{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:8px 5px;
+    border-bottom:1px solid #f1f5f9;
+    font-size:13px;
+}
+
+.waiting-person:last-child{
+    border-bottom:0;
+}
+
+.waiting-number{
+    min-width:22px;
+    color:#1769aa;
+    font-weight:900;
+}
+
+.waiting-name{
+    flex:1;
+    font-weight:bold;
+}
+
+.game-type{
+    background:#e0f2fe;
+    color:#0369a1;
+    padding:3px 6px;
+    border-radius:5px;
+    font-size:10px;
+}
+
+.empty{
+    padding:12px;
+    text-align:center;
+    color:#94a3b8;
+    font-size:13px;
+}
+
+.footer{
+    text-align:center;
+    color:#94a3b8;
+    font-size:12px;
+    padding:18px 0 5px;
+}
+
+.loading{
+    text-align:center;
+    color:#64748b;
+    padding:15px;
+    font-size:13px;
+}
+
+@media(max-width:500px){
+
+    body{
+        padding:8px;
+    }
+
+    .header{
+        padding:19px 12px;
+    }
+
+    .header h1{
+        font-size:22px;
+    }
+
+    .card,
+    .waiting-card{
+        padding:15px;
+    }
+
+    .court-grid{
+        grid-template-columns:repeat(5,1fr);
+        gap:5px;
+    }
+
+    .court-btn{
+        font-size:12px;
+        height:44px;
+    }
+
+}
+
+@media(max-width:360px){
+
+    .court-grid{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- 제목 -->
+    <div class="header">
+        <h1>장군봉 배드민턴 대기 등록</h1>
+        <p>원하는 코트를 선택하고 대기 등록해주세요.</p>
+    </div>
+
+
+    <!-- 메시지 -->
+    <div id="message" class="message"></div>
+
+
+    <!-- 등록 결과 -->
+    <div id="result" class="result">
+
+        <div class="result-title">
+            대기 등록이 완료되었습니다.
+        </div>
+
+        <div id="resultNumber" class="result-number">
+            -
+        </div>
+
+        <div id="resultText" class="result-text">
+            -
+        </div>
+
+    </div>
+
+
+    <!-- 등록 카드 -->
+    <div class="card">
+
+        <h2>대기 등록</h2>
+
+
+        <!-- 닉네임 -->
+        <label for="nickname">
+            닉네임
+        </label>
+
+        <input
+            id="nickname"
+            type="text"
+            maxlength="20"
+            placeholder="닉네임을 입력하세요"
+            autocomplete="off"
+        >
+
+
+        <!-- 코트 -->
+        <label>
+            코트 선택
+        </label>
+
+        <div
+            id="courtGrid"
+            class="court-grid"
+        ></div>
+
+        <div
+            id="courtInfo"
+            class="court-info"
+        >
+            코트를 선택해주세요.
+        </div>
+
+
+        <!-- 게임 방식 -->
+        <label for="gameType">
+            게임 방식
+        </label>
+
+        <select id="gameType">
+
+            <option value="">
+                게임 방식을 선택하세요
+            </option>
+
+            <option value="4인복식">
+                4인복식
+            </option>
+
+            <option value="2인단식">
+                2인단식
+            </option>
+
+            <option value="난타">
+                난타
+            </option>
+
+        </select>
+
+
+        <!-- 등록 버튼 -->
+        <button
+            id="registerBtn"
+            class="register-btn"
+            onclick="registerWaiting()"
+        >
+            대기 등록
+        </button>
+
+    </div>
+
+
+    <!-- 현재 대기 현황 -->
+    <div class="waiting-card">
+
+        <h2>현재 대기 현황</h2>
+
+        <div
+            id="waitingArea"
+            class="loading"
+        >
+            대기 현황을 불러오는 중입니다.
+        </div>
+
+    </div>
+
+
+    <div class="footer">
+        장군봉 배드민턴 체육관
+    </div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   기본 설정
+===================================================== */
+
+const COURTS = [
+    "1번 코트",
+    "2번 코트",
+    "3번 코트",
+    "4번 코트",
+    "5번 코트"
+];
+
+let selectedCourt = "";
+
+let currentData = {
+    list: [],
+    locks: {},
+    maxLimit: 5
+};
+
+
+/* =====================================================
+   페이지 시작
+===================================================== */
+
+window.addEventListener(
+    "load",
+    function(){
+
+        createCourtButtons();
+
+        loadData();
+
+    }
+);
+
+
+/* =====================================================
+   코트 버튼 생성
+===================================================== */
+
+function createCourtButtons(){
+
+    const grid =
+        document.getElementById(
+            "courtGrid"
+        );
+
+    let html = "";
+
+    COURTS.forEach(
+        function(court, index){
+
+            html += `
+
+                <button
+                    type="button"
+                    class="court-btn"
+                    id="court-${index + 1}"
+                    onclick="selectCourt('${court}')"
+                >
+                    ${court}
+                </button>
+
+            `;
+
+        }
+    );
+
+    grid.innerHTML = html;
+
+}
+
+
+/* =====================================================
+   코트 선택
+===================================================== */
+
+function selectCourt(court){
+
+    const locked =
+        currentData.locks &&
+        currentData.locks[court] === true;
+
+    if(locked){
+
+        showMessage(
+            court + "은 현재 등록 완료 상태입니다.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    selectedCourt = court;
+
+
+    COURTS.forEach(
+        function(item,index){
+
+            const button =
+                document.getElementById(
+                    "court-" + (index + 1)
+                );
+
+            if(item === court){
+
+                button.classList.add(
+                    "selected"
+                );
+
+            }
+            else{
+
+                button.classList.remove(
+                    "selected"
+                );
+
+            }
+
+        }
+    );
+
+
+    updateCourtInfo();
+
+}
+
+
+/* =====================================================
+   코트 상태 표시
+===================================================== */
+
+function updateCourtInfo(){
+
+    const info =
+        document.getElementById(
+            "courtInfo"
+        );
+
+    if(!selectedCourt){
+
+        info.textContent =
+            "코트를 선택해주세요.";
+
+        return;
+
+    }
+
+
+    const list =
+        getCourtList(
+            selectedCourt
+        );
+
+
+    const locked =
+        currentData.locks &&
+        currentData.locks[selectedCourt] === true;
+
+
+    if(locked){
+
+        info.textContent =
+            selectedCourt +
+            " 등록 완료";
+
+        return;
+
+    }
+
+
+    info.textContent =
+        selectedCourt +
+        " 현재 " +
+        list.length +
+        "명 대기 / 최대 " +
+        (currentData.maxLimit || 5) +
+        "명";
+
+}
+
+
+/* =====================================================
+   API 데이터 불러오기
+===================================================== */
+
+async function loadData(){
+
+    try{
+
+        const response =
+            await fetch(
+                "/api",
+                {
+                    method:"GET",
+                    cache:"no-store"
+                }
+            );
+
+
+        if(!response.ok){
+
+            throw new Error(
+                "서버 응답 오류"
+            );
+
+        }
+
+
+        const result =
+            await response.json();
+
+
+        if(result){
+
+            currentData = result;
+
+        }
+
+
+        if(!currentData.list){
+
+            currentData.list = [];
+
+        }
+
+
+        if(!currentData.locks){
+
+            currentData.locks = {};
+
+        }
+
+
+        if(
+            !currentData.maxLimit ||
+            Number(currentData.maxLimit) < 1
+        ){
+
+            currentData.maxLimit = 5;
+
+        }
+
+
+        renderCourtButtons();
+
+        renderWaitingList();
+
+        updateCourtInfo();
+
+    }
+    catch(error){
+
+        console.error(error);
+
+        document.getElementById(
+            "waitingArea"
+        ).innerHTML = `
+            <div class="empty">
+                서버 연결에 실패했습니다.
+            </div>
+        `;
+
+    }
+
+}
+
+
+/* =====================================================
+   코트 버튼 상태 다시 그리기
+===================================================== */
+
+function renderCourtButtons(){
+
+    COURTS.forEach(
+        function(court,index){
+
+            const button =
+                document.getElementById(
+                    "court-" + (index + 1)
+                );
+
+            if(!button){
+
+                return;
+
+            }
+
+
+            const locked =
+                currentData.locks &&
+                currentData.locks[court] === true;
+
+
+            if(locked){
+
+                button.classList.add(
+                    "closed"
+                );
+
+                button.classList.remove(
+                    "selected"
+                );
+
+                button.textContent =
+                    court.replace(
+                        "번 코트",
+                        "번\n완료"
+                    );
+
+            }
+            else{
+
+                button.classList.remove(
+                    "closed"
+                );
+
+                button.textContent =
+                    court;
+
+            }
+
+        }
+    );
+
+
+    if(
+        selectedCourt &&
+        currentData.locks &&
+        currentData.locks[selectedCourt] === true
+    ){
+
+        selectedCourt = "";
+
+        document.getElementById(
+            "courtInfo"
+        ).textContent =
+            "코트를 선택해주세요.";
+
+    }
+
+}
+
+
+/* =====================================================
+   코트별 대기자
+===================================================== */
+
+function getCourtList(court){
+
+    if(
+        !currentData ||
+        !Array.isArray(
+            currentData.list
+        )
+    ){
+
+        return [];
+
+    }
+
+
+    return currentData.list.filter(
+        function(item){
+
+            return String(
+                item.court || ""
+            ) === court;
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   대기 현황 표시
+===================================================== */
+
+function renderWaitingList(){
+
+    const area =
+        document.getElementById(
+            "waitingArea"
+        );
+
+
+    let html = "";
+
+
+    COURTS.forEach(
+        function(court){
+
+            const list =
+                getCourtList(court);
+
+
+            const locked =
+                currentData.locks &&
+                currentData.locks[court] === true;
+
+
+            html += `
+
+                <div class="court-section">
+
+                    <div class="court-title">
+
+                        <span>
+                            ${court}
+                            ${locked ? " · 등록 완료" : ""}
+                        </span>
+
+                        <span class="count">
+                            ${list.length}명
+                        </span>
+
+                    </div>
+
+                    <div class="waiting-list">
+            `;
+
+
+            if(list.length === 0){
+
+                html += `
+                    <div class="empty">
+                        대기자가 없습니다.
+                    </div>
+                `;
+
+            }
+            else{
+
+                list.forEach(
+                    function(item,index){
+
+                        const nickname =
+                            safe(
+                                item.nickname ||
+                                item.name ||
+                                ""
+                            );
+
+
+                        const game =
+                            safe(
+                                item.game ||
+                                item.gameType ||
+                                ""
+                            );
+
+
+                        html += `
+
+                            <div class="waiting-person">
+
+                                <span class="waiting-number">
+                                    ${index + 1}
+                                </span>
+
+                                <span class="waiting-name">
+                                    ${nickname}
+                                </span>
+
+                                <span class="game-type">
+                                    ${game}
+                                </span>
+
+                            </div>
+
+                        `;
+
+                    }
+                );
+
+            }
+
+
+            html += `
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }
+    );
+
+
+    area.innerHTML = html;
+
+}
+
+
+/* =====================================================
+   대기 등록
+===================================================== */
+
+async function registerWaiting(){
+
+    const nickname =
+        document.getElementById(
+            "nickname"
+        ).value.trim();
+
+
+    const gameType =
+        document.getElementById(
+            "gameType"
+        ).value;
+
+
+    if(!nickname){
+
+        showMessage(
+            "닉네임을 입력해주세요.",
+            "error"
+        );
+
+        document.getElementById(
+            "nickname"
+        ).focus();
+
+        return;
+
+    }
+
+
+    if(!selectedCourt){
+
+        showMessage(
+            "코트를 선택해주세요.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    if(!gameType){
+
+        showMessage(
+            "게임 방식을 선택해주세요.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    const locked =
+        currentData.locks &&
+        currentData.locks[selectedCourt] === true;
+
+
+    if(locked){
+
+        showMessage(
+            selectedCourt +
+            "은 등록 완료 상태입니다.",
+            "error"
+        );
+
+        loadData();
+
+        return;
+
+    }
+
+
+    const list =
+        getCourtList(
+            selectedCourt
+        );
+
+
+    const maxLimit =
+        Number(
+            currentData.maxLimit || 5
+        );
+
+
+    if(list.length >= maxLimit){
+
+        showMessage(
+            selectedCourt +
+            " 대기 인원이 가득 찼습니다.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    const button =
+        document.getElementById(
+            "registerBtn"
+        );
+
+
+    button.disabled = true;
+
+    button.textContent =
+        "등록 중...";
+
+
+    try{
+
+        const response =
+            await fetch(
+                "/api",
+                {
+                    method:"POST",
+
+                    headers:{
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:JSON.stringify({
+
+                        action:"add",
+
+                        nickname:nickname,
+
+                        court:selectedCourt,
+
+                        game:gameType
+
+                    })
+
+                }
+            );
+
+
+        const result =
+            await response.json();
+
+
+        if(!response.ok){
+
+            throw new Error(
+                result.message ||
+                "등록에 실패했습니다."
+            );
+
+        }
+
+
+        if(
+            !result.success
+        ){
+
+            throw new Error(
+                result.message ||
+                "등록에 실패했습니다."
+            );
+
+        }
+
+
+        const position =
+            Number(
+                result.position || 1
+            );
+
+
+        document.getElementById(
+            "resultNumber"
+        ).textContent =
+            position + "번";
+
+
+        document.getElementById(
+            "resultText"
+        ).textContent =
+            selectedCourt +
+            " 대기 순번입니다.";
+
+
+        document.getElementById(
+            "result"
+        ).classList.add(
+            "show"
+        );
+
+
+        showMessage(
+            "대기 등록이 완료되었습니다.",
+            "success"
+        );
+
+
+        document.getElementById(
+            "nickname"
+        ).value = "";
+
+
+        document.getElementById(
+            "gameType"
+        ).value = "";
+
+
+        selectedCourt = "";
+
+
+        COURTS.forEach(
+            function(item,index){
+
+                const courtButton =
+                    document.getElementById(
+                        "court-" + (index + 1)
+                    );
+
+                if(courtButton){
+
+                    courtButton.classList.remove(
+                        "selected"
+                    );
+
+                }
+
+            }
+        );
+
+
+        document.getElementById(
+            "courtInfo"
+        ).textContent =
+            "코트를 선택해주세요.";
+
+
+        await loadData();
+
+
+    }
+    catch(error){
+
+        console.error(error);
+
+        showMessage(
+            error.message ||
+            "등록 중 오류가 발생했습니다.",
+            "error"
+        );
+
+    }
+    finally{
+
+        button.disabled = false;
+
+        button.textContent =
+            "대기 등록";
+
+    }
+
+}
+
+
+/* =====================================================
+   메시지
+===================================================== */
+
+function showMessage(
+    text,
+    type
+){
+
+    const box =
+        document.getElementById(
+            "message"
+        );
+
+
+    box.textContent =
+        text;
+
+
+    box.className =
+        "message show " +
+        type;
+
+
+    setTimeout(
+        function(){
+
+            box.className =
+                "message";
+
+        },
+        3000
+    );
+
+}
+
+
+/* =====================================================
+   HTML 안전 처리
+===================================================== */
+
+function safe(value){
+
+    if(
+        value === undefined ||
+        value === null
+    ){
+
+        return "";
+
+    }
+
+
+    return String(value)
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* =====================================================
+   5초 자동 새로고침
+===================================================== */
+
+setInterval(
+    function(){
+
+        loadData();
+
+    },
+    5000
+);
+
+</script>
+
+</body>
+</html>
