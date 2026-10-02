@@ -1,7 +1,7 @@
 ﻿<!doctype html>
 
 <html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>미성체육관 · 배드민턴 8코트 운영</title>
+<title>장군봉 배드민턴</title>
 <style>
 *{box-sizing:border-box}body{margin:0;font-family:Arial,"Noto Sans KR",sans-serif;color:#071633;background:#fff}
 .header{height:76px;background:#061b4f;color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 28px}.brand{font-size:26px;font-weight:800}.sub{font-size:13px}.wrap{padding:16px;max-width:1500px;margin:auto}
@@ -1528,302 +1528,257 @@ body.customer-display .waitCard:hover{transform:none!important}
 </style>
 
 
-<style id="MSEONG_8COURT_FINAL_OVERRIDES">
-/* 원본 기능은 유지하고 코트 표시만 1~8코트로 확장 */
-@media (min-width:901px){
-  body:has(.customerHeader) .activeCourts{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:8px!important;}
-  body:has(.customerHeader) .waitGrid{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;grid-template-rows:none!important;grid-template-areas:none!important;gap:8px!important;}
-  body:has(.customerHeader) .waitGrid > .waitCard{grid-column:auto!important;grid-row:auto!important;width:100%!important;min-width:0!important;}
-  body:has(.customerHeader) .waitGrid > .displayNotice{grid-column:1 / -1!important;grid-row:auto!important;width:100%!important;height:auto!important;min-height:100px!important;}
-  body:has(.customerHeader) .waitRow{min-height:40px!important;}
-  body:has(.customerHeader) .waitEmpty{min-height:165px!important;}
-  body:has(.customerHeader) .activeCard{min-width:0!important;}
-  body:has(.customerHeader) .waitCard{min-width:0!important;}
+<style id="MISEONG_ADMIN_PREMIUM_HEADER">
+/* 관리자 화면 디자인 개선 전용
+   기능/JS/데이터/버튼 동작은 변경하지 않음 */
+body:has(.admin) {
+  background:
+    radial-gradient(circle at 90% 0%, rgba(28,105,232,.08), transparent 28%),
+    linear-gradient(180deg,#eef4fb 0%,#f7f9fc 55%,#eef3f8 100%);
 }
-@media (min-width:901px){
-  body:has(.admin) .lockGrid{grid-template-columns:repeat(4,minmax(0,1fr))!important;}
-  body:has(.admin) .adminTable .grid{grid-template-columns:repeat(4,minmax(0,1fr))!important;}
-}
-</style>
 
-<style id="MSEONG_IMAGE_STYLE_INNOVATION">
-/* ============================================================
-   미성체육관 8코트 이미지형 고객 화면
-   - 원본 JS/QR/등록/관리자/Supabase 기능 유지
-   - 기존 대기표/대기카드 방식은 사용하지 않음
-   - 대기자는 하나의 '노선도' 형태로 단순화
-   ============================================================ */
-body:has(.customerHeader){
-  background:#eef4fa!important;
-  overflow-x:hidden!important;
-}
-.customerHeader{
-  height:84px!important;
-  padding:8px 18px!important;
-  background:linear-gradient(100deg,#061b4f 0%,#082c68 100%)!important;
-  border-bottom:0!important;
-  box-shadow:0 4px 14px rgba(5,25,65,.16)!important;
-}
-.customerBrand{min-width:330px!important;gap:9px!important}
-.customerBrand .brandIcon{font-size:31px!important}
-.customerBrand .brand{font-size:25px!important;font-weight:950!important;letter-spacing:-.7px!important}
-.customerBrand .sub{font-size:10px!important;color:#d9e7ff!important;margin-top:3px!important}
-.customerStats{
-  height:62px!important;
-  gap:7px!important;
-  background:transparent!important;
-}
-.topStat{
-  border:1px solid #d4dfec!important;
-  border-radius:7px!important;
-  box-shadow:0 2px 5px rgba(0,0,0,.10)!important;
-  gap:7px!important;
-  background:#fff!important;
-}
-.topStat>span{font-size:25px!important;line-height:1!important}
-.topStat small{font-size:9px!important;font-weight:950!important}
-.topStat b{font-size:23px!important;line-height:1.05!important}
-.customerRight{min-width:150px!important}
-.customerRight #clock{font-size:12px!important;color:#fff!important;font-weight:900!important}
-.customerAdminBtn{display:none!important}
-
-.customerWrap{
-  padding:10px 16px 14px!important;
-  background:#eef4fa!important;
-}
-.displaySectionTitle{
-  display:inline-block!important;
-  padding:7px 13px!important;
-  margin:0 0 6px 2px!important;
-  background:#0b3d9c!important;
-  color:#fff!important;
-  border:0!important;
-  border-radius:7px 7px 0 0!important;
-  font-size:15px!important;
-  line-height:1!important;
-  font-weight:950!important;
-}
-.activeCourts{
-  grid-template-columns:repeat(4,minmax(0,1fr))!important;
-  gap:9px!important;
-}
-.activeCard{
-  height:246px!important;
-  min-width:0!important;
-  border:2px solid var(--court)!important;
-  border-radius:10px!important;
-  background:#fff!important;
-  box-shadow:0 2px 8px rgba(30,57,92,.09)!important;
-  overflow:hidden!important;
-}
-.activeHead{
-  height:43px!important;
-  padding:4px 8px!important;
-  font-size:16px!important;
-  border-bottom:1px solid #dbe4ee!important;
-}
-.activeNum{width:31px!important;height:31px!important;font-size:19px!important;border-radius:6px!important}
-.status{font-size:10px!important;padding:6px 9px!important;border-radius:15px!important}
-.activeBody{padding:10px 12px!important;text-align:center!important}
-.activeMain{min-height:83px!important}
-.activeTeam{
-  font-size:24px!important;
-  font-weight:950!important;
-  line-height:1.05!important;
-  margin-top:3px!important;
-  color:var(--court)!important;
-}
-.activeGameBox{
-  display:inline-flex!important;
-  margin-top:5px!important;
-  padding:4px 10px!important;
-  border-radius:99px!important;
-  background:#f3f6fa!important;
-  border:1px solid #dce5ef!important;
-}
-.activeGameLabel{display:none!important}
-.activeGame{font-size:13px!important;font-weight:900!important;color:var(--court)!important}
-.activeLabel{
-  font-size:10px!important;
-  margin-top:8px!important;
-  padding-top:7px!important;
-  border-top:1px solid #cfd9e5!important;
-}
-.activeTime{font-size:18px!important;font-weight:950!important;margin-top:3px!important}
-.courtRemain{
-  margin-top:7px!important;
-  padding:5px 8px!important;
-  border-radius:7px!important;
-  background:color-mix(in srgb,var(--court) 7%,#fff)!important;
-  border:1px solid color-mix(in srgb,var(--court) 25%,#dce5ef)!important;
-}
-.courtRemain small{display:block!important;font-size:8px!important;color:#5d6d81!important}
-.courtRemain b{display:block!important;font-size:20px!important;color:var(--court)!important;line-height:1.1!important}
-.emptyState{padding-top:23px!important}
-.emptyStateWord{font-size:35px!important;font-weight:950!important;color:var(--court)!important;line-height:1!important}
-.emptyState span{display:block!important;margin-top:7px!important;font-size:9px!important;color:#78869a!important}
-.emptyState strong{display:block!important;margin-top:7px!important;font-size:13px!important}
-
-/* ===== 혁신 대기 UI: 하나의 노선도 ===== */
-.flowDashboard{
-  margin-top:9px!important;
-  background:#fff!important;
-  border:1px solid #c7d7e8!important;
-  border-radius:11px!important;
-  box-shadow:0 3px 10px rgba(30,57,92,.07)!important;
-  overflow:hidden!important;
-}
-.flowTitle{
-  height:52px!important;
-  padding:7px 14px!important;
+/* 상단 관리자 헤더 */
+body:has(.admin) .header{
+  position:sticky!important;
+  top:0!important;
+  z-index:1000!important;
+  height:82px!important;
+  min-height:82px!important;
+  box-sizing:border-box!important;
+  padding:0 28px!important;
   display:flex!important;
   align-items:center!important;
   justify-content:space-between!important;
-  background:linear-gradient(100deg,#06265c,#0a3e8e)!important;
+  gap:20px!important;
   color:#fff!important;
+  background:
+    linear-gradient(135deg,#061a49 0%,#0a2d6f 52%,#1458b8 100%)!important;
+  border-bottom:1px solid rgba(255,255,255,.16)!important;
+  box-shadow:0 8px 26px rgba(4,25,65,.22)!important;
+  overflow:hidden!important;
 }
-.flowTitle b{display:block!important;font-size:20px!important;font-weight:950!important}
-.flowTitle span{display:block!important;font-size:9px!important;color:#cbdcf5!important;margin-top:2px!important}
-.flowTitle>strong{
-  min-width:68px!important;
-  padding:7px 10px!important;
-  border-radius:20px!important;
-  background:#fff!important;
-  color:#0b3d9c!important;
-  text-align:center!important;
-  font-size:15px!important;
-}
-.flowMap{
-  padding:8px 12px 10px!important;
-  display:grid!important;
-  grid-template-columns:repeat(2,minmax(0,1fr))!important;
-  gap:6px 16px!important;
-  background:#f7fafd!important;
-}
-.flowLane{
-  min-width:0!important;
-  height:57px!important;
-  display:flex!important;
-  align-items:center!important;
-  gap:8px!important;
-}
-.laneLabel{
-  width:76px!important;
-  flex:0 0 76px!important;
-  display:flex!important;
-  align-items:center!important;
-  gap:5px!important;
-}
-.laneNum{
-  width:27px!important;height:27px!important;
-  border-radius:7px!important;
-  display:flex!important;align-items:center!important;justify-content:center!important;
-  color:#fff!important;background:var(--court)!important;
-  font-size:13px!important;font-weight:950!important;
-}
-.laneLabel b{font-size:10px!important;color:#23344c!important;white-space:nowrap!important}
-.laneLabel small{
-  margin-left:auto!important;
-  min-width:21px!important;
-  text-align:center!important;
-  color:var(--court)!important;
-  font-size:8px!important;
-  font-weight:950!important;
-}
-.lanePath{
-  min-width:0!important;
-  flex:1!important;
-  height:49px!important;
-  display:flex!important;
-  align-items:center!important;
-  gap:2px!important;
-  position:relative!important;
-}
-.pathLine{
+body:has(.admin) .header:before{
+  content:""!important;
   position:absolute!important;
-  left:18px!important;
-  right:18px!important;
-  top:23px!important;
-  height:3px!important;
-  background:#d6e0ea!important;
-  border-radius:3px!important;
+  inset:0!important;
+  background:
+    radial-gradient(circle at 12% 50%,rgba(65,166,255,.20),transparent 28%),
+    linear-gradient(90deg,transparent 0 70%,rgba(255,255,255,.04) 70% 71%,transparent 71%)!important;
+  pointer-events:none!important;
 }
-.laneStart{
+body:has(.admin) .header > *{
   position:relative!important;
-  z-index:2!important;
-  flex:0 0 30px!important;
-  width:30px!important;height:30px!important;
-  border-radius:50%!important;
-  display:flex!important;align-items:center!important;justify-content:center!important;
-  background:#1d304a!important;color:#fff!important;
-  font-size:6px!important;font-weight:1000!important;
-  box-shadow:0 0 0 4px #f7fafd!important;
+  z-index:1!important;
 }
-.flowStop{
-  position:relative!important;
-  z-index:2!important;
-  flex:1 1 0!important;
-  min-width:0!important;
-  height:49px!important;
+body:has(.admin) .header .brand{
+  font-size:25px!important;
+  line-height:1.05!important;
+  letter-spacing:-.8px!important;
+  font-weight:950!important;
+  color:#fff!important;
+  text-shadow:0 2px 8px rgba(0,0,0,.18)!important;
+}
+body:has(.admin) .header .sub{
+  margin-top:6px!important;
+  color:rgba(255,255,255,.72)!important;
+  font-size:12px!important;
+  font-weight:700!important;
+  letter-spacing:.2px!important;
+}
+body:has(.admin) .adminTop{
   display:flex!important;
-  flex-direction:column!important;
+  align-items:center!important;
+  gap:10px!important;
+}
+body:has(.admin) .adminTop:before{
+  content:"●  관리자 모드"!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  height:34px!important;
+  padding:0 12px!important;
+  border:1px solid rgba(255,255,255,.20)!important;
+  border-radius:999px!important;
+  background:rgba(255,255,255,.09)!important;
+  color:#dcecff!important;
+  font-size:12px!important;
+  font-weight:850!important;
+  white-space:nowrap!important;
+}
+body:has(.admin) .adminTop a{
+  display:inline-flex!important;
   align-items:center!important;
   justify-content:center!important;
-}
-.flowDot{
-  width:22px!important;height:22px!important;
-  border-radius:50%!important;
-  display:flex!important;align-items:center!important;justify-content:center!important;
-  background:#fff!important;
-  border:2px solid #c8d5e3!important;
-  color:#63738a!important;
-  font-size:8px!important;font-weight:1000!important;
-  box-shadow:0 0 0 4px #f7fafd!important;
-}
-.flowStop b{
-  max-width:100%!important;
-  overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important;
-  font-size:8px!important;color:#34445a!important;
-  margin-top:2px!important;
-}
-.flowStop small{font-size:7px!important;color:#7c8999!important;margin-top:1px!important}
-.flowStop.next .flowDot{
-  background:var(--court)!important;
-  border-color:var(--court)!important;
+  min-height:38px!important;
+  padding:0 16px!important;
+  border:1px solid rgba(255,255,255,.22)!important;
+  border-radius:10px!important;
+  background:rgba(255,255,255,.13)!important;
   color:#fff!important;
+  box-shadow:0 5px 14px rgba(0,0,0,.12)!important;
+  transition:.18s ease!important;
 }
-.flowStop.next b,.flowStop.next small{color:var(--court)!important;font-weight:950!important}
-.laneNone{
+body:has(.admin) .adminTop a:hover{
+  background:#fff!important;
+  color:#0a3d8d!important;
+  transform:translateY(-1px)!important;
+}
+
+/* 좌측 관리자 메뉴 */
+body:has(.admin) .side{
+  background:linear-gradient(180deg,#071b45 0%,#09275a 58%,#0b326d 100%)!important;
+  padding:22px 12px!important;
+  border-right:1px solid rgba(255,255,255,.07)!important;
+  box-shadow:5px 0 20px rgba(7,27,69,.10)!important;
+}
+body:has(.admin) .side h2{
+  padding:12px 13px 16px!important;
+  margin:0 0 10px!important;
+  font-size:14px!important;
+  letter-spacing:.4px!important;
+  color:#bcd8ff!important;
+}
+body:has(.admin) .nav{
   position:relative!important;
-  z-index:2!important;
-  flex:1!important;
-  text-align:center!important;
-  font-size:9px!important;
-  color:#9aa7b6!important;
-  background:#f7fafd!important;
+  margin:5px 0!important;
+  padding:13px 13px 13px 16px!important;
+  border:1px solid transparent!important;
+  border-radius:10px!important;
+  color:#e8f1ff!important;
+  font-size:13px!important;
+  font-weight:850!important;
+  transition:.18s ease!important;
+}
+body:has(.admin) .nav:hover{
+  background:rgba(255,255,255,.08)!important;
+  border-color:rgba(255,255,255,.08)!important;
+  transform:translateX(2px)!important;
+}
+body:has(.admin) .nav.on{
+  background:linear-gradient(90deg,#1970ed,#1557c7)!important;
+  border-color:rgba(255,255,255,.12)!important;
+  box-shadow:0 7px 18px rgba(15,92,210,.28)!important;
+}
+body:has(.admin) .nav.on:before{
+  content:""!important;
+  position:absolute!important;
+  left:0!important;
+  top:8px!important;
+  bottom:8px!important;
+  width:4px!important;
+  border-radius:0 5px 5px 0!important;
+  background:#6fc7ff!important;
 }
 
-/* 기존 대기표는 고객 화면에서 표시하지 않음 */
-body:has(.customerHeader) .waitDashboard{display:none!important}
+/* 본문 */
+body:has(.admin) .main{
+  padding:24px 28px 42px!important;
+  max-width:none!important;
+}
+body:has(.admin) .panel{
+  border:1px solid #dbe5f1!important;
+  border-radius:16px!important;
+  background:rgba(255,255,255,.94)!important;
+  box-shadow:0 7px 22px rgba(19,46,82,.07)!important;
+  padding:20px!important;
+  transition:.18s ease!important;
+}
+body:has(.admin) .panel:hover{
+  box-shadow:0 10px 28px rgba(19,46,82,.10)!important;
+}
+body:has(.admin) .panel h2{
+  color:#0b2550!important;
+  font-size:19px!important;
+  font-weight:950!important;
+  letter-spacing:-.3px!important;
+}
+body:has(.admin) .hint{
+  color:#70819a!important;
+  font-size:12px!important;
+}
 
-@media(max-width:1100px){
-  .customerBrand{min-width:250px!important}
-  .customerBrand .brand{font-size:20px!important}
-  .customerStats{height:56px!important}
-  .topStat b{font-size:19px!important}
-  .activeCard{height:230px!important}
-  .activeTeam{font-size:20px!important}
-  .activeTime{font-size:16px!important}
+/* 코트 카드 */
+body:has(.admin) .lockCard{
+  border:1px solid #dbe5f0!important;
+  border-radius:13px!important;
+  background:linear-gradient(180deg,#fff,#f7faff)!important;
+  padding:15px!important;
+  box-shadow:0 3px 10px rgba(22,48,82,.05)!important;
+  transition:.18s ease!important;
 }
-@media(max-width:800px){
-  .customerHeader{height:auto!important;flex-wrap:wrap!important}
-  .customerBrand{min-width:100%!important}
-  .customerStats{width:100%!important}
-  .activeCourts{grid-template-columns:repeat(2,minmax(0,1fr))!important}
-  .flowMap{grid-template-columns:1fr!important}
+body:has(.admin) .lockCard:hover{
+  transform:translateY(-2px)!important;
+  border-color:#a9c7ef!important;
+  box-shadow:0 9px 20px rgba(24,75,142,.10)!important;
 }
-@media(max-width:520px){
-  .activeCourts{grid-template-columns:1fr!important}
+body:has(.admin) .lockCard h3{
+  color:#102d58!important;
+  font-size:17px!important;
+}
+
+/* 설정 카드 */
+body:has(.admin) .controlBox{
+  border:1px solid #dce6f2!important;
+  border-radius:13px!important;
+  background:linear-gradient(180deg,#fff,#f8fbff)!important;
+  box-shadow:0 3px 10px rgba(22,48,82,.04)!important;
+}
+body:has(.admin) .stepper button{
+  border:1px solid #cbd8e8!important;
+  background:#fff!important;
+  color:#174a8f!important;
+  transition:.15s ease!important;
+}
+body:has(.admin) .stepper button:hover{
+  background:#edf5ff!important;
+  border-color:#78a9e8!important;
+  transform:scale(1.04)!important;
+}
+body:has(.admin) .stepper strong{
+  color:#0b2e61!important;
+}
+
+/* 저장 버튼 */
+body:has(.admin) .adminSave{
+  border-radius:10px!important;
+  min-height:40px!important;
+  padding:0 18px!important;
+  background:linear-gradient(135deg,#1265df,#0b4eb9)!important;
+  box-shadow:0 5px 13px rgba(18,101,223,.20)!important;
+  transition:.18s ease!important;
+}
+body:has(.admin) .adminSave:hover{
+  transform:translateY(-1px)!important;
+  box-shadow:0 8px 18px rgba(18,101,223,.27)!important;
+}
+
+/* 현재 대기 현황 */
+body:has(.admin) .adminTable .card{
+  border:1px solid #dce6f1!important;
+  border-radius:12px!important;
+  background:#fbfdff!important;
+  box-shadow:0 3px 9px rgba(20,45,80,.04)!important;
+}
+body:has(.admin) .adminTable .card h3{
+  color:#123765!important;
+}
+
+/* 위험/초기화 영역은 명확하게 */
+body:has(.admin) .cooldownPanel{
+  border:1px solid #f1c9ce!important;
+  background:linear-gradient(180deg,#fff,#fffafa)!important;
+  box-shadow:0 6px 18px rgba(180,35,50,.06)!important;
+}
+
+/* 모바일 */
+@media(max-width:700px){
+  body:has(.admin) .header{
+    height:auto!important;
+    min-height:76px!important;
+    padding:14px 16px!important;
+  }
+  body:has(.admin) .header .brand{font-size:20px!important}
+  body:has(.admin) .adminTop:before{display:none!important}
+  body:has(.admin) .main{padding:14px!important}
 }
 </style>
 
@@ -1886,8 +1841,8 @@ async function sbUpsert(row){
 const params=new URLSearchParams(location.search);
 const REGISTER_URL=location.origin+location.pathname+"#register";
 const ticket=params.get("ticket")||"";
-const colors=["#07854b","#1461e8","#6332d7","#ff7900","#e51e2a","#0b7a75","#8a4baf","#6b7280"];
-const def={id:ROOT,settings:{"난타":15,"4인 복식":15,"2인 단식":15},max_per_court:5,re_register_minutes:5,finished:{},courts:[1,2,3,4,5,6,7,8].map(id=>({id,blocked:false,active:null,queue:[]}))};
+const colors=["#07854b","#1461e8","#6332d7","#ff7900","#e51e2a"];
+const def={id:ROOT,settings:{"난타":15,"4인 복식":15,"2인 단식":15},max_per_court:5,re_register_minutes:5,finished:{},courts:[1,2,3,4,5].map(id=>({id,blocked:false,active:null,queue:[]}))};
 /* QR 연속등록 방지: 개인정보 대신 브라우저에 저장되는 랜덤 토큰만 사용 */
 const DEVICE_KEY="jb_anonymous_device_v1";
 const COOLDOWN_KEY="jb_register_cooldown_until";
@@ -2087,13 +2042,7 @@ function showError(err){
 }
 async function get(){
   const data=await sbGet();
-  const s=data?data:cloneDef();
-  s.courts=Array.isArray(s.courts)?s.courts:[];
-  for(let id=1;id<=8;id++){
-    if(!s.courts.some(c=>Number(c.id)===id)) s.courts.push({id,blocked:false,active:null,queue:[]});
-  }
-  s.courts=s.courts.filter(c=>Number(c.id)>=1&&Number(c.id)<=8).sort((a,b)=>Number(a.id)-Number(b.id));
-  return s;
+  return data?data:cloneDef();
 }
 async function save(s){
   /* 다른 고객 기기의 오래된 상태가 관리자 설정을 덮어쓰지 않도록
@@ -2246,22 +2195,21 @@ function customer(){
   <header class="customerHeader">
     <div class="customerBrand">
       <div class="brandIcon">🏸</div>
-      <div><div class="brand">미성체육관 · 배드민턴 8코트 운영</div><div class="sub">실시간 코트 운영 · 대기 흐름</div></div>
+      <div><div class="brand">장군봉 실내배드민턴장</div><div class="sub">실시간 대기 현황</div></div>
     </div>
     <div class="customerStats" id="stats"></div>
     <div class="customerRight"><div id="clock"></div><a class="customerAdminBtn" href="?page=admin">관리자</a></div>
   </header>
   <main class="customerWrap">
-    <section class="courtSection">
+    <section>
       <div class="displaySectionTitle">이용 중 코트 현황</div>
       <div class="activeCourts" id="activeCourts"></div>
     </section>
-    <section class="flowDashboard">
-      <div class="flowTitle">
-        <div><b>전체 대기 흐름</b><span>코트별 대기팀을 하나의 흐름도로 표시합니다.</span></div>
-        <strong id="flowTotal">0팀</strong>
+    <section class="waitDashboard">
+      <div class="waitDashboardTitle">대기 현황
+        <small>대기 순서는 등록 순서이며, 게임 완료 또는 취소 시 자동으로 다음 대기가 적용됩니다.</small>
       </div>
-      <div class="flowMap" id="waitFlow"></div>
+      <div class="waitGrid" id="waitGrid"></div>
     </section>
   </main>`;
   renderCustomer(cloneDef());
@@ -2290,22 +2238,21 @@ async function forceRemoveWait(courtId,ticketId){
 }
 
 function renderCustomer(s){
-  const stats=document.getElementById("stats"), activeEl=document.getElementById("activeCourts"), flowEl=document.getElementById("waitFlow");
-  if(!stats||!activeEl||!flowEl)return;
-
+  const stats=document.getElementById("stats"), activeEl=document.getElementById("activeCourts"), waitEl=document.getElementById("waitGrid");
+  if(!stats||!activeEl||!waitEl)return;
   const activeCount=s.courts.filter(c=>c.active).length;
   const waitCount=s.courts.reduce((n,c)=>n+(c.queue||[]).length,0);
   const peopleCount=s.courts.reduce((n,c)=>
     n+(c.queue||[]).reduce((m,x)=>m+Number(x.people||x.count||1),0),0);
-
   stats.innerHTML=`
-    <div class="topStat"><span style="color:#22a8ff">▣</span><div><small>전체 코트</small><b>8개</b></div></div>
-    <div class="topStat"><span style="color:#12b86a">●</span><div><small>이용 중 코트</small><b>${activeCount}개</b></div></div>
-    <div class="topStat"><span style="color:#ff9b19">●</span><div><small>대기 중 팀</small><b>${waitCount}팀</b></div></div>
-    <div class="topStat"><span style="color:#8b5cf6">●</span><div><small>전체 대기 인원</small><b>${peopleCount}명</b></div></div>`;
+    <div class="topStat"><span style="color:#145fe5">▣</span><div><small>전체 코트</small><b>5 개</b></div></div>
+    <div class="topStat"><span style="color:#07854b">👥</span><div><small>이용 중 코트</small><b>${activeCount} 개</b></div></div>
+    <div class="topStat"><span style="color:#ff7900">👥</span><div><small>대기 중 팀</small><b>${waitCount} 팀</b></div></div>
+    <div class="topStat"><span style="color:#6332d7">👥</span><div><small>전체 대기 인원</small><b>${peopleCount} 명</b></div></div>`;
 
   activeEl.innerHTML=s.courts.map((c,i)=>{
-    const a=c.active,color=colors[i],q=c.queue||[];
+    const a=c.active,color=colors[i];
+    const q=c.queue||[];
     let firstWaitSec=0;
     if(a?.endAt) firstWaitSec=Math.max(0,Math.ceil((Number(a.endAt)-Date.now())/1000));
     return `<article class="activeCard" style="--court:${color}">
@@ -2324,49 +2271,44 @@ function renderCustomer(s){
           </div>
           <div class="activeLabel">이용 시간</div>
           <div class="activeTime" style="color:${color}">${a.startTime||tm(a.startAt)} ~ ${a.endTime||tm(a.endAt)}</div>
-          <div class="courtRemain" style="--court:${color}">
-            <small>남은 시간</small><b>${left(a.endAt)}</b>
+          <div style="margin-top:10px;padding:9px;background:${color}12;border:1px solid ${color}55;border-radius:9px">
+            <div style="font-size:10px;color:#53657c">남은 시간</div>
+            <div style="font-size:23px;font-weight:950;color:${color}">${left(a.endAt)}</div>
           </div>`
         :`
-          <div class="emptyState">
-            <div class="emptyStateWord">없음</div>
-            <span>현재 이용팀 없음</span>
-            <strong style="color:${color}">${q.length?'대기 '+q.length+'팀':'대기 없음'}</strong>
-          </div>`}
+          <div style="font-size:11px;font-weight:800;color:#53657c;margin-top:8px">현재 대기 팀</div>
+          <div class="activeTeam">없음</div>
+          <div class="activeLabel">예상 대기 시간</div>
+          <div class="activeTime" style="color:${color}">${q.length?'약 '+Math.floor(firstWaitSec/60)+'분':'대기 없음'}</div>`}
+        <div class="courtGraphic" style="--court:${color}"><i></i><i></i><i></i>${a?'<span>🏸</span>':''}</div>
       </div>
     </article>`;
   }).join("");
 
-  // 혁신형: 대기자 표/카드 없이 하나의 '지하철 노선도'처럼 8개 코트를 연결한다.
-  flowEl.innerHTML=s.courts.map((c,i)=>{
-    const q=c.queue||[], color=colors[i];
-    let activeRemainSec=c.active?.endAt
-      ? Math.max(0,Math.ceil((Number(c.active.endAt)-Date.now())/1000)) : 0;
-
-    const stops=q.slice(0,5).map((x,j)=>{
-      let sec=activeRemainSec;
-      for(let k=0;k<j;k++) sec+=Number(s.settings?.[q[k].game]||15)*60;
-      const mins=Math.floor(Math.max(0,sec)/60);
-      const timeText=mins>0?`약 ${mins}분`:'곧';
-      return `<div class="flowStop ${j===0?'next':''}" title="${esc(x.nickname)}">
-        <span class="flowDot">${j+1}</span>
-        <b>${esc(x.nickname)}</b>
-        <small>${timeText}</small>
-      </div>`;
-    }).join("");
-
-    return `<div class="flowLane" style="--court:${color}">
-      <div class="laneLabel"><span class="laneNum">${c.id}</span><b>${c.id}코트</b><small>${q.length}팀</small></div>
-      <div class="lanePath">
-        <span class="laneStart">NOW</span>
-        <span class="pathLine"></span>
-        ${stops || '<span class="laneNone">대기 없음</span>'}
-      </div>
-    </div>`;
-  }).join("");
-
-  const ft=document.getElementById("flowTotal");
-  if(ft)ft.textContent=`${waitCount}팀`;
+  waitEl.innerHTML=s.courts.map((c,i)=>{
+    const q=c.queue||[],color=colors[i];
+    let activeRemainSec=0;
+    if(c.active?.endAt){
+      activeRemainSec=Math.max(0,Math.ceil((Number(c.active.endAt)-Date.now())/1000));
+    }
+    return `<article class="waitCard" style="--court:${color}">
+      <div class="waitCardTitle">${c.id}번 코트 대기 현황 <span>(총 ${q.length}팀)</span></div>
+      <div class="waitTableHead"><span>순번</span><span>팀명</span><span>게임 방식</span><span>예상 대기시간</span></div>
+      ${q.length?q.slice(0,5).map((x,j)=>{
+        let waitSec=activeRemainSec;
+        for(let k=0;k<j;k++) waitSec+=Number(s.settings?.[q[k].game]||15)*60;
+        waitSec=Math.max(0,waitSec);
+        const wm=Math.floor(waitSec/60), ws=waitSec%60;
+        const waitText=wm>0?`${wm}분 ${String(ws).padStart(2,"0")}초`:`${ws}초`;
+        return `<div class="waitRow" style="grid-template-columns:78px 0.82fr 1fr 1.35fr!important"><div class="waitControl" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;gap:6px"><button type="button" class="kickBtn" aria-label="대기자 삭제" style="display:inline-flex!important;align-items:center!important;justify-content:center!important;width:30px!important;height:30px!important;min-width:30px!important;padding:0!important;margin:0!important;border:0!important;border-radius:5px!important;background:#e11d2e!important;color:#fff!important;font-size:20px!important;font-weight:950!important;line-height:30px!important;cursor:pointer!important" onclick="forceRemoveWait(${c.id},'${String(x.ticket||"").replace(/'/g,"\\'")}');event.stopPropagation()">×</button><b style="background:${color}22;color:${color}">${j+1}</b></div><strong>${esc(x.nickname)}</strong><span>${esc(x.game)}</span><em>${waitText}</em></div>`;
+      }).join(""):`<div class="waitEmpty"><div class="emptyFace" style="color:${color}">☺</div><b>대기 중인 팀이 없습니다.</b></div>`}
+    </article>`;
+  }).join("")+`
+    <aside class="displayNotice">
+      <div><b>① 안내사항</b><span>대기 등록 순서에 따라 다음 팀이 <strong>자동으로 진행됩니다.</strong></span></div>
+      <div><b>② 대기 예상 시간</b><span>현재 설정된 게임 시간을 기준으로 <strong>실시간 산정됩니다.</strong></span></div>
+      <div><b>③ 이용 안내</b><span>코트 이용 현황은 <strong>실시간으로 업데이트됩니다.</strong></span></div>
+    </aside>`;
 }
 async function register(){
 
@@ -2409,7 +2351,7 @@ async function register(){
           <select id="c">
             <option value="">코트를 선택해주세요</option>
             <option value="1">1번 코트</option><option value="2">2번 코트</option>
-            <option value="3">3번 코트</option><option value="4">4번 코트</option><option value="5">5번 코트</option><option value="6">6번 코트</option><option value="7">7번 코트</option><option value="8">8번 코트</option>
+            <option value="3">3번 코트</option><option value="4">4번 코트</option><option value="5">5번 코트</option>
           </select>
         </div>
         <div style="display:flex;justify-content:space-between;align-items:center;margin:8px 2px 14px">
@@ -2736,14 +2678,14 @@ function jgbYearRows(s){const rows=jgbHistoryRows(s),map={};rows.forEach(r=>{con
 function jgbCsvDownload(filename,rows){if(!rows.length){alert("다운로드할 집계 데이터가 없습니다.");return}const headers=Object.keys(rows[0]);const escv=v=>`"${String(v??"").replace(/"/g,'""')}"`;const csv="\uFEFF"+headers.join(",")+"\n"+rows.map(r=>headers.map(k=>escv(r[k])).join(",")).join("\n");const blob=new Blob([csv],{type:"text/csv;charset=utf-8;"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download=filename;a.click();setTimeout(()=>URL.revokeObjectURL(url),500)}
 function jgbDownloadMonthly(){const year=document.getElementById("jgbYearSelect")?.value||String(jgbKstNow().getFullYear());const rows=jgbMonthlyRows(window.jgbInsightState||{},year);jgbCsvDownload(`${year}년_장군봉_월별운영집계.csv`,rows.map(x=>({월:x.month,"이용팀":x.teams,"게임수":x.games,"QR등록":x.qr,"대기팀":x.queue,"평균대기(분)":x.avgWait,"평균가동률(%)":x.util})))}
 function jgbDownloadYearly(){const rows=jgbYearRows(window.jgbInsightState||{});jgbCsvDownload(`장군봉_연도별운영집계.csv`,rows.map(x=>({연도:x.year,"이용팀":x.teams,"게임수":x.games,"QR등록":x.qr,"대기팀":x.queue,"평균대기(분)":x.avgWait,"평균가동률(%)":x.util})))}
-function jgbDailyReport(){const s=window.jgbInsightState||{},now=jgbKstNow(),m=jgbInsightMetrics(s,now),sch=m.sch,data=jgbHourlyData(m,now),monthRows=jgbMonthlyRows(s,String(now.getFullYear()));const win=window.open("","_blank","width=1200,height=900");if(!win){alert("팝업 차단을 해제해주세요.");return}const bars=data.map(x=>`<div class="rb"><b>${x.teams}</b><i style="height:${Math.max(4,(x.teams/Math.max(1,...data.map(y=>y.teams)))*170)}px"></i><span>${x.label}</span></div>`).join("");win.document.write(`<!doctype html><html lang="ko"><head><meta charset="utf-8"><title>미성체육관 QR 대기 운영 일일보고서</title><style>@page{size:A4 landscape;margin:10mm}*{box-sizing:border-box}body{font-family:Arial,'Noto Sans KR',sans-serif;color:#071633;margin:0;font-size:11px}.top{border-bottom:3px solid #061b4f;padding-bottom:8px}.title{font-size:25px;font-weight:900}.sub{margin-top:4px;color:#52627a}.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:10px 0}.k{border:1px solid #cfd8e5;border-radius:6px;padding:9px}.k b{display:block;color:#53627b;font-size:10px}.k strong{display:block;font-size:22px;margin-top:4px}.grid{display:grid;grid-template-columns:1.25fr 1fr;gap:10px}.panel{border:1px solid #cfd8e5;border-radius:6px;padding:10px;margin-bottom:10px}.panel h2{font-size:14px;margin:0 0 8px}.chart{height:205px;display:flex;align-items:flex-end;gap:12px;border-bottom:1px solid #bfc9d8;padding:10px}.rb{flex:1;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:4px}.rb i{display:block;width:28px;background:#1769e8;border-radius:4px 4px 0 0}.rb b{font-size:14px}.rb span{font-size:12px;font-weight:800}.tbl{width:100%;border-collapse:collapse}.tbl th,.tbl td{border:1px solid #d6deea;padding:6px;text-align:center}.tbl th{background:#f1f5f9}.note{padding:8px;background:#eef5ff;border:1px solid #cbdcff;border-radius:5px;line-height:1.5}.footer{margin-top:8px;color:#53627b;text-align:right}@media print{button{display:none}}</style></head><body><div class="top"><div class="title">미성체육관 QR 대기 운영 일일보고서</div><div class="sub">운영일자: ${m.today} · ${sch.label} · 8코트 · ${sch.start}~${sch.end}</div></div><div class="kpis"><div class="k"><b>이용 팀</b><strong>${m.recs.filter(r=>!r._waiting).length}팀</strong></div><div class="k"><b>게임 수</b><strong>${m.games}게임</strong></div><div class="k"><b>평균 대기</b><strong>${Math.round(m.avgWait)}분</strong></div><div class="k"><b>코트 가동률</b><strong>${Math.round(m.utilElapsed)}%</strong></div><div class="k"><b>QR 대기·등록</b><strong>${m.queueCount}팀 · ${m.qr}건</strong></div></div><div class="grid"><section class="panel"><h2>시간대별 이용 현황</h2><div class="chart">${bars}</div></section><section class="panel"><h2>1~8코트 운영 현황</h2><table class="tbl"><thead><tr><th>코트</th><th>현재 이용</th><th>현재 대기</th><th>상태</th></tr></thead><tbody>${(s.courts||[]).slice(0,8).map(c=>`<tr><td>${c.id}번</td><td>${c.active?"이용 중":"-"}</td><td>${(c.queue||[]).length}팀</td><td>${c.blocked?"잠금":c.active?"이용 중":"대기/미사용"}</td></tr>`).join("")}</tbody></table><div class="note" style="margin-top:8px">QR 대기: ${m.qr}건 · 현재 대기: ${m.queueCount}팀 · 운영 경과: ${jgbFormatMin(m.elapsed)} / ${jgbFormatMin(sch.minutes)}</div></section></div><section class="panel"><h2>금일 운영 요약</h2><table class="tbl"><tbody><tr><th>운영 기준</th><td>${sch.label}</td><th>운영 코트</th><td>8코트</td></tr><tr><th>운영 시간</th><td>${sch.start}~${sch.end}</td><th>실제 코트 사용</th><td>${jgbFormatMin(m.used)}</td></tr><tr><th>평균 대기 목표</th><td>17분 이하</td><th>평균 대기</th><td>${Math.round(m.avgWait)}분</td></tr></tbody></table></section><div class="footer">미성체육관 · 당일 실시간 계산 · ${m.today}</div></body></html>`);win.document.close();setTimeout(()=>win.print(),500)}
+function jgbDailyReport(){const s=window.jgbInsightState||{},now=jgbKstNow(),m=jgbInsightMetrics(s,now),sch=m.sch,data=jgbHourlyData(m,now),monthRows=jgbMonthlyRows(s,String(now.getFullYear()));const win=window.open("","_blank","width=1200,height=900");if(!win){alert("팝업 차단을 해제해주세요.");return}const bars=data.map(x=>`<div class="rb"><b>${x.teams}</b><i style="height:${Math.max(4,(x.teams/Math.max(1,...data.map(y=>y.teams)))*170)}px"></i><span>${x.label}</span></div>`).join("");win.document.write(`<!doctype html><html lang="ko"><head><meta charset="utf-8"><title>장군봉 배드민턴장 QR 대기 운영 일일보고서</title><style>@page{size:A4 landscape;margin:10mm}*{box-sizing:border-box}body{font-family:Arial,'Noto Sans KR',sans-serif;color:#071633;margin:0;font-size:11px}.top{border-bottom:3px solid #061b4f;padding-bottom:8px}.title{font-size:25px;font-weight:900}.sub{margin-top:4px;color:#52627a}.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:10px 0}.k{border:1px solid #cfd8e5;border-radius:6px;padding:9px}.k b{display:block;color:#53627b;font-size:10px}.k strong{display:block;font-size:22px;margin-top:4px}.grid{display:grid;grid-template-columns:1.25fr 1fr;gap:10px}.panel{border:1px solid #cfd8e5;border-radius:6px;padding:10px;margin-bottom:10px}.panel h2{font-size:14px;margin:0 0 8px}.chart{height:205px;display:flex;align-items:flex-end;gap:12px;border-bottom:1px solid #bfc9d8;padding:10px}.rb{flex:1;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:4px}.rb i{display:block;width:28px;background:#1769e8;border-radius:4px 4px 0 0}.rb b{font-size:14px}.rb span{font-size:12px;font-weight:800}.tbl{width:100%;border-collapse:collapse}.tbl th,.tbl td{border:1px solid #d6deea;padding:6px;text-align:center}.tbl th{background:#f1f5f9}.note{padding:8px;background:#eef5ff;border:1px solid #cbdcff;border-radius:5px;line-height:1.5}.footer{margin-top:8px;color:#53627b;text-align:right}@media print{button{display:none}}</style></head><body><div class="top"><div class="title">장군봉 배드민턴장 QR 대기 운영 일일보고서</div><div class="sub">운영일자: ${m.today} · ${sch.label} · 5코트 · ${sch.start}~${sch.end}</div></div><div class="kpis"><div class="k"><b>이용 팀</b><strong>${m.recs.filter(r=>!r._waiting).length}팀</strong></div><div class="k"><b>게임 수</b><strong>${m.games}게임</strong></div><div class="k"><b>평균 대기</b><strong>${Math.round(m.avgWait)}분</strong></div><div class="k"><b>코트 가동률</b><strong>${Math.round(m.utilElapsed)}%</strong></div><div class="k"><b>QR 대기·등록</b><strong>${m.queueCount}팀 · ${m.qr}건</strong></div></div><div class="grid"><section class="panel"><h2>시간대별 이용 현황</h2><div class="chart">${bars}</div></section><section class="panel"><h2>1~5코트 운영 현황</h2><table class="tbl"><thead><tr><th>코트</th><th>현재 이용</th><th>현재 대기</th><th>상태</th></tr></thead><tbody>${(s.courts||[]).slice(0,5).map(c=>`<tr><td>${c.id}번</td><td>${c.active?"이용 중":"-"}</td><td>${(c.queue||[]).length}팀</td><td>${c.blocked?"잠금":c.active?"이용 중":"대기/미사용"}</td></tr>`).join("")}</tbody></table><div class="note" style="margin-top:8px">QR 대기: ${m.qr}건 · 현재 대기: ${m.queueCount}팀 · 운영 경과: ${jgbFormatMin(m.elapsed)} / ${jgbFormatMin(sch.minutes)}</div></section></div><section class="panel"><h2>금일 운영 요약</h2><table class="tbl"><tbody><tr><th>운영 기준</th><td>${sch.label}</td><th>운영 코트</th><td>5코트</td></tr><tr><th>운영 시간</th><td>${sch.start}~${sch.end}</td><th>실제 코트 사용</th><td>${jgbFormatMin(m.used)}</td></tr><tr><th>평균 대기 목표</th><td>17분 이하</td><th>평균 대기</th><td>${Math.round(m.avgWait)}분</td></tr></tbody></table></section><div class="footer">장군봉 배드민턴장 · 당일 실시간 계산 · ${m.today}</div></body></html>`);win.document.close();setTimeout(()=>win.print(),500)}
 function jgbRenderMonthlyYearly(s){const body=document.getElementById("jgbHistoryBody");if(!body)return;const now=jgbKstNow(),year=String(now.getFullYear()),months=jgbMonthlyRows(s,year),years=jgbYearRows(s),opts=[...new Set([year,...months.map(x=>String(x.month).slice(0,4))])].sort().map(y=>`<option value="${y}">${y}년</option>`).join("");body.innerHTML=`<div class="insightHistoryHead"><div><h2>월별·연도별 이용 집계</h2><p>현재 시스템에서 누적된 운영 이력만 집계합니다. 신규 적용 전 과거 데이터는 소급되지 않습니다.</p></div><div class="historyBtns"><select id="jgbYearSelect" onchange="jgbRenderMonthlyYearly(window.jgbInsightState||{})">${opts}</select><button class="reportBtn" onclick="jgbDownloadMonthly()">엑셀 다운로드</button><button class="reportBtn secondary" onclick="jgbDownloadYearly()">연도별 엑셀</button></div></div><div class="historyTabs"><button class="on" onclick="document.getElementById('jgbMonthly').style.display='block';document.getElementById('jgbYearly').style.display='none';this.classList.add('on');this.nextElementSibling.classList.remove('on')">월별</button><button onclick="document.getElementById('jgbMonthly').style.display='none';document.getElementById('jgbYearly').style.display='block';this.classList.add('on');this.previousElementSibling.classList.remove('on')">연도별</button></div><div id="jgbMonthly"><table class="insightTable"><thead><tr><th>월</th><th>이용팀</th><th>게임수</th><th>QR등록</th><th>대기팀</th><th>평균대기</th><th>평균가동률</th></tr></thead><tbody>${months.length?months.map(x=>`<tr><td>${x.month}</td><td>${x.teams}팀</td><td>${x.games}게임</td><td>${x.qr}건</td><td>${x.queue}팀</td><td>${x.avgWait}분</td><td>${x.util}%</td></tr>`).join(""):`<tr><td colspan="7">누적된 월별 데이터가 없습니다.</td></tr>`}</tbody></table></div><div id="jgbYearly" style="display:none"><table class="insightTable"><thead><tr><th>연도</th><th>이용팀</th><th>게임수</th><th>QR등록</th><th>대기팀</th><th>평균대기</th><th>평균가동률</th></tr></thead><tbody>${years.length?years.map(x=>`<tr><td>${x.year}</td><td>${x.teams}팀</td><td>${x.games}게임</td><td>${x.qr}건</td><td>${x.queue}팀</td><td>${x.avgWait}분</td><td>${x.util}%</td></tr>`).join(""):`<tr><td colspan="7">누적된 연도별 데이터가 없습니다.</td></tr>`}</tbody></table></div>`}
 function jgbInsight(){const app=document.getElementById("app");app.innerHTML=`<div class="insightPage"><header class="insightHeader"><div><div class="insightBrand">장군봉 배드민턴 · 운영 인사이트</div><div class="insightSub">실시간 운영 · QR 대기 · 일일보고서 · 월별·연도별 집계</div></div><div class="insightHeadRight"><span id="jgbInsightClock"></span><button class="insightHeadBtn" onclick="jgbDailyReport()">📄 일일보고서</button><button class="insightHeadBtn" onclick="jgbDownloadMonthly()">📊 엑셀</button><button class="insightHeadBtn" onclick="resetOperationalState()">↻ 리셋</button><button class="insightHeadBtn" onclick="location.href='?page=admin'">관리자</button></div></header><div class="insightLayout"><aside class="insightSide"><h2>운영 관리</h2><a class="insightNav" href="?page=management&view=display">실시간 현황</a><a class="insightNav" href="?page=admin">대기·코트 관리</a><a class="insightNav on" href="?page=insight">운영 인사이트</a><a class="insightNav" href="?page=admin#gameTime">설정 관리</a></aside><main class="insightMain"><div id="jgbInsightBody">불러오는 중...</div><div id="jgbHistoryBody"></div></main></div></div>`;if(window.jgbInsightTimer)clearInterval(window.jgbInsightTimer);const tick=async()=>{try{const s=await advance(await get(),true);if(!window.jgbInsightHistoryBooted){await jgbUpdateInsightHistory(s,true);window.jgbInsightHistoryBooted=true}else if(new Date().getSeconds()===0)await jgbUpdateInsightHistory(s);window.jgbInsightState=s;renderInsight(s);jgbRenderMonthlyYearly(s);const c=document.getElementById("jgbInsightClock");if(c)c.textContent=new Date().toLocaleTimeString("ko-KR",{hour:"2-digit",minute:"2-digit",second:"2-digit",hourCycle:"h23"})}catch(e){showError(e)}};tick();window.jgbInsightTimer=setInterval(tick,1000)}
-function renderInsight(s){const body=document.getElementById("jgbInsightBody");if(!body)return;const now=jgbKstNow(),m=jgbInsightMetrics(s,now),sch=m.sch,data=jgbHourlyData(m,now),maxTeams=Math.max(1,...data.map(x=>x.teams)),activeCount=(s.courts||[]).filter(c=>c.active).length,status=m.elapsed<=0?"운영 전":m.elapsed>=sch.minutes?"운영 종료":"운영 중";const bars=data.map(x=>`<div class="insightBarCol"><div class="insightBarValue">${x.teams}</div><div class="insightBar" style="height:${Math.max(4,x.teams/maxTeams*150)}px"></div><div class="insightBarLabel">${x.label}</div></div>`).join("");const start=jgbClockDate(now,sch.start),end=jgbClockDate(now,sch.end);const courtRows=(s.courts||[]).slice(0,8).map(c=>{let used=0;for(const r of m.recs.filter(r=>Number(r.court)===Number(c.id))){if(r.startAt)used+=jgbOverlapMinutes(r.startAt,r.endedAt||r.endAt||Date.now(),start,end)}const pct=Math.min(100,used/Math.max(1,m.elapsed)*100);return `<div class="insightCourt"><div class="insightCourtName">${c.id}번 코트</div><div class="insightTrack"><div class="insightFill" style="width:${pct}%"></div></div><div class="insightPct">${Math.round(pct)}%</div></div>`}).join("");body.innerHTML=`<div class="insightToolbar"><button class="reportBtn" onclick="jgbDailyReport()">📄 일일 운영보고서</button><button class="reportBtn" onclick="jgbDownloadMonthly()">📊 월별 엑셀</button><button class="reportBtn secondary" onclick="jgbDownloadYearly()">📊 연도별 엑셀</button><button class="reportBtn danger" onclick="resetOperationalState()">↻ 오늘 운영 리셋</button></div><div class="insightKpis"><div class="insightKpi"><div class="insightKpiTitle">오늘 운영 기준</div><div class="insightKpiValue">${sch.label}</div><div class="insightKpiSub">${sch.courts}코트 · ${sch.start} ~ ${sch.end} · ${jgbFormatMin(sch.minutes)}</div></div><div class="insightKpi"><div class="insightKpiTitle">이용 팀</div><div class="insightKpiValue">${m.recs.filter(r=>!r._waiting).length}팀</div><div class="insightKpiSub">오늘 현재 기준</div></div><div class="insightKpi"><div class="insightKpiTitle">게임 수</div><div class="insightKpiValue">${m.games}게임</div><div class="insightKpiSub">완료 + 현재 이용</div></div><div class="insightKpi"><div class="insightKpiTitle">평균 대기</div><div class="insightKpiValue">${Math.round(m.avgWait)}분</div><div class="insightKpiSub">등록 → 게임 시작 기준</div></div><div class="insightKpi"><div class="insightKpiTitle">QR 대기</div><div class="insightKpiValue">${m.qr}건</div><div class="insightKpiSub">현재 대기 ${m.queueCount}팀 · 가동률 ${Math.round(m.utilElapsed)}%</div></div></div><div class="insightGrid"><section class="insightPanel"><h2>시간대별 이용 현황 <span class="insightHint">오늘</span></h2><div class="insightChart">${bars}</div><div class="insightNotice"><b>${sch.label}</b> 기준 · 평일 19:00~21:50 / 주말·공휴일 16:00~21:50</div></section><section class="insightPanel"><h2>8코트 가동 현황</h2>${courtRows}<div class="insightStatus">${status} · ${m.elapsed<=0?sch.start+"부터 운영 시작":m.elapsed>=sch.minutes?"오늘 운영시간 종료":jgbFormatMin(m.elapsed)+" 경과"}</div></section><section class="insightPanel"><h2>오늘 운영 기준</h2><div class="insightSchedule"><div class="insightScheduleBox"><b>평일</b><span>8코트 운영<br>19:00 ~ 21:50<br>2시간 50분</span></div><div class="insightScheduleBox weekend"><b>주말·공휴일</b><span>8코트 운영<br>16:00 ~ 21:50<br>5시간 50분</span></div></div><div class="insightNotice">오늘은 <b>${sch.label}</b> 기준으로 자동 계산 중입니다.</div></section></div><div class="insightGrid"><section class="insightPanel"><h2>운영 시간별 효율 비교</h2><table class="insightTable"><thead><tr><th>구분</th><th>코트</th><th>운영시간</th><th>총 운영시간</th></tr></thead><tbody><tr><td>평일</td><td>8코트</td><td>19:00~21:50</td><td>2시간 50분</td></tr><tr><td>주말·공휴일</td><td>8코트</td><td>16:00~21:50</td><td>5시간 50분</td></tr></tbody></table></section><section class="insightPanel"><h2>오늘 운영 지표</h2><table class="insightTable"><tbody><tr><th>평균 대기</th><td>${Math.round(m.avgWait)}분</td></tr><tr><th>운영 경과</th><td>${jgbFormatMin(m.elapsed)} / ${jgbFormatMin(sch.minutes)}</td></tr><tr><th>실제 코트 사용</th><td>${jgbFormatMin(m.used)}</td></tr><tr><th>QR 등록</th><td>${m.qr}건</td></tr><tr><th>대기 팀</th><td>${m.queueCount}팀</td></tr><tr><th>이용 중 코트</th><td>${activeCount}개</td></tr></tbody></table></section><section class="insightPanel"><h2>월별·연도별 집계</h2><div class="insightNotice">아래 표에서 월별·연도별 이용팀, 게임, QR 등록, 평균 대기, 평균 가동률을 확인할 수 있습니다.</div><div class="insightStatus">신규 적용일부터 운영 이력이 누적됩니다.</div></section></div><div class="insightFoot"><span>미성체육관 배드민턴 운영 인사이트 · ${jgbDateKey(now)}</span><span>실시간 · QR 대기 · 일일/월별/연도별</span></div>`}
+function renderInsight(s){const body=document.getElementById("jgbInsightBody");if(!body)return;const now=jgbKstNow(),m=jgbInsightMetrics(s,now),sch=m.sch,data=jgbHourlyData(m,now),maxTeams=Math.max(1,...data.map(x=>x.teams)),activeCount=(s.courts||[]).filter(c=>c.active).length,status=m.elapsed<=0?"운영 전":m.elapsed>=sch.minutes?"운영 종료":"운영 중";const bars=data.map(x=>`<div class="insightBarCol"><div class="insightBarValue">${x.teams}</div><div class="insightBar" style="height:${Math.max(4,x.teams/maxTeams*150)}px"></div><div class="insightBarLabel">${x.label}</div></div>`).join("");const start=jgbClockDate(now,sch.start),end=jgbClockDate(now,sch.end);const courtRows=(s.courts||[]).slice(0,5).map(c=>{let used=0;for(const r of m.recs.filter(r=>Number(r.court)===Number(c.id))){if(r.startAt)used+=jgbOverlapMinutes(r.startAt,r.endedAt||r.endAt||Date.now(),start,end)}const pct=Math.min(100,used/Math.max(1,m.elapsed)*100);return `<div class="insightCourt"><div class="insightCourtName">${c.id}번 코트</div><div class="insightTrack"><div class="insightFill" style="width:${pct}%"></div></div><div class="insightPct">${Math.round(pct)}%</div></div>`}).join("");body.innerHTML=`<div class="insightToolbar"><button class="reportBtn" onclick="jgbDailyReport()">📄 일일 운영보고서</button><button class="reportBtn" onclick="jgbDownloadMonthly()">📊 월별 엑셀</button><button class="reportBtn secondary" onclick="jgbDownloadYearly()">📊 연도별 엑셀</button><button class="reportBtn danger" onclick="resetOperationalState()">↻ 오늘 운영 리셋</button></div><div class="insightKpis"><div class="insightKpi"><div class="insightKpiTitle">오늘 운영 기준</div><div class="insightKpiValue">${sch.label}</div><div class="insightKpiSub">${sch.courts}코트 · ${sch.start} ~ ${sch.end} · ${jgbFormatMin(sch.minutes)}</div></div><div class="insightKpi"><div class="insightKpiTitle">이용 팀</div><div class="insightKpiValue">${m.recs.filter(r=>!r._waiting).length}팀</div><div class="insightKpiSub">오늘 현재 기준</div></div><div class="insightKpi"><div class="insightKpiTitle">게임 수</div><div class="insightKpiValue">${m.games}게임</div><div class="insightKpiSub">완료 + 현재 이용</div></div><div class="insightKpi"><div class="insightKpiTitle">평균 대기</div><div class="insightKpiValue">${Math.round(m.avgWait)}분</div><div class="insightKpiSub">등록 → 게임 시작 기준</div></div><div class="insightKpi"><div class="insightKpiTitle">QR 대기</div><div class="insightKpiValue">${m.qr}건</div><div class="insightKpiSub">현재 대기 ${m.queueCount}팀 · 가동률 ${Math.round(m.utilElapsed)}%</div></div></div><div class="insightGrid"><section class="insightPanel"><h2>시간대별 이용 현황 <span class="insightHint">오늘</span></h2><div class="insightChart">${bars}</div><div class="insightNotice"><b>${sch.label}</b> 기준 · 평일 19:00~21:50 / 주말·공휴일 16:00~21:50</div></section><section class="insightPanel"><h2>5코트 가동 현황</h2>${courtRows}<div class="insightStatus">${status} · ${m.elapsed<=0?sch.start+"부터 운영 시작":m.elapsed>=sch.minutes?"오늘 운영시간 종료":jgbFormatMin(m.elapsed)+" 경과"}</div></section><section class="insightPanel"><h2>오늘 운영 기준</h2><div class="insightSchedule"><div class="insightScheduleBox"><b>평일</b><span>5코트 운영<br>19:00 ~ 21:50<br>2시간 50분</span></div><div class="insightScheduleBox weekend"><b>주말·공휴일</b><span>5코트 운영<br>16:00 ~ 21:50<br>5시간 50분</span></div></div><div class="insightNotice">오늘은 <b>${sch.label}</b> 기준으로 자동 계산 중입니다.</div></section></div><div class="insightGrid"><section class="insightPanel"><h2>운영 시간별 효율 비교</h2><table class="insightTable"><thead><tr><th>구분</th><th>코트</th><th>운영시간</th><th>총 운영시간</th></tr></thead><tbody><tr><td>평일</td><td>5코트</td><td>19:00~21:50</td><td>2시간 50분</td></tr><tr><td>주말·공휴일</td><td>5코트</td><td>16:00~21:50</td><td>5시간 50분</td></tr></tbody></table></section><section class="insightPanel"><h2>오늘 운영 지표</h2><table class="insightTable"><tbody><tr><th>평균 대기</th><td>${Math.round(m.avgWait)}분</td></tr><tr><th>운영 경과</th><td>${jgbFormatMin(m.elapsed)} / ${jgbFormatMin(sch.minutes)}</td></tr><tr><th>실제 코트 사용</th><td>${jgbFormatMin(m.used)}</td></tr><tr><th>QR 등록</th><td>${m.qr}건</td></tr><tr><th>대기 팀</th><td>${m.queueCount}팀</td></tr><tr><th>이용 중 코트</th><td>${activeCount}개</td></tr></tbody></table></section><section class="insightPanel"><h2>월별·연도별 집계</h2><div class="insightNotice">아래 표에서 월별·연도별 이용팀, 게임, QR 등록, 평균 대기, 평균 가동률을 확인할 수 있습니다.</div><div class="insightStatus">신규 적용일부터 운영 이력이 누적됩니다.</div></section></div><div class="insightFoot"><span>장군봉 배드민턴 운영 인사이트 · ${jgbDateKey(now)}</span><span>실시간 · QR 대기 · 일일/월별/연도별</span></div>`}
 
 function admin(){
   const app=document.getElementById("app");
-  app.innerHTML=`<header class="header"><div><div class="brand">미성체육관 통합관리</div><div class="sub">통합관리 시스템</div></div><div class="adminTop"><a href="?page=management&view=display">고객 화면으로</a></div></header><div class="admin"><div id="viewSwitch" class="view-switch" aria-label="관리자 화면 전환">
+  app.innerHTML=`<header class="header"><div><div class="brand">장군봉 통합관리</div><div class="sub">통합관리 시스템</div></div><div class="adminTop"><a href="?page=management&view=display">고객 화면으로</a></div></header><div class="admin"><div id="viewSwitch" class="view-switch" aria-label="관리자 화면 전환">
   <button id="switchCustomer" type="button" onclick="switchManagementView('display')">고객용</button>
   <button id="switchAdmin" class="secondary" type="button" onclick="switchManagementView('admin')">관리자 모드</button>
 </div>
